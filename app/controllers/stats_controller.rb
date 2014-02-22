@@ -552,17 +552,11 @@ class StatsController < ApplicationController
   end
 
   def get_stats_tags
-    cloud = TagCloud.new(current_user)
-    cloud.compute
-    @tags_for_cloud = cloud.tags
-    @tags_min = cloud.min
-    @tags_divisor = cloud.divisor
+    @cloud = TagCloud.new(current_user)
+    @cloud.compute
 
-    cloud = TagCloud.new(current_user, @cut_off_3months)
-    cloud.compute
-    @tags_for_cloud_90days = cloud.tags
-    @tags_min_90days = cloud.min
-    @tags_divisor_90days = cloud.divisor
+    @cloud_90days = TagCloud.new(current_user, @cut_off_3months)
+    @cloud_90days.compute
   end
 
   def get_ids_from (actions, week_from, week_to, at_end)
